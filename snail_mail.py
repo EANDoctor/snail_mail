@@ -36,53 +36,53 @@ def validate_email(email: str):
 
     ok_message = "Valid email address :D"
 
-	#1 Minimum egy "@" karakter kell legyen az email címben.
+	#1 Minimum egy "@" karakter kell legyen az email címben. (pl: ❌ "random.peldacom" ✅ "random.pelda@gmail.com")
     if number_of_at_characters == 0:
       print(error_message_no_at)
       return
 
-    #2 csak egy "@" karakter lehet az email címben.
+    #2 csak egy "@" karakter lehet az email címben. (pl: ❌ "random@pelda@gmail.com")
     if number_of_at_characters > 1:
       print(error_message_too_many_at)
       return
     
-    #3 felhasználónév nem lehet üres.
+    #3 felhasználónév nem lehet üres. (pl: ❌ "@gmail.com")
     if position_of_at == 0:
       print(error_message_no_username)
       return
 
-    #4 a domain nem lehet üres.
+    #4 a domain nem lehet üres. (pl: ❌ "random@")
     if position_of_at == length_of_email - 1:
       print(error_message_no_domain)
       return
 
-    #5 Minimum egy "." karakter kell hogy legyen az email címben.
+    #5 Minimum egy "." karakter kell hogy legyen az email címben. (pl: ❌ "random@gmailcom")
     if number_of_dot_characters == 0:
       print(error_message_no_dot)
       return
 
-    #6 a domainban kell hogy legyen legalább egy "." karakter a "@" karakter után.
+    #6 a domainban kell hogy legyen legalább egy "." karakter a "@" karakter után. (pl: ❌ "random@com")
     if position_of_first_dot_after_the_at == -1:
       print(error_message_no_dot_in_domain)
       return
 
-    #7 A "top level domain" nem lehet üres (PL nem lehet "random@gmail.)
+    #7 A "top level domain" nem lehet üres (pl: ❌ "random@gmail.")
     if position_of_last_dot == length_of_email - 1:
       print(error_message_no_tld)
       return
 
-    #8 A "top level domain" legalább 2 karakternek kell lennie.(pl: .hu)
+    #8 A "top level domain" legalább 2 karakternek kell lennie. (pl: ❌ "random@gmail.h" ✅ "random@gmail.hu")
     tld_length = length_of_email - position_of_last_dot - 1
     if tld_length < 2:
       print(error_message_short_tld)
       return
 
-    #9 Érvényes felhasználónév. Az első karakter nem lehet "."
+    #9 Érvényes felhasználónév: Az első karakter nem lehet "." (pl: ❌ ".random@gmail.com")
     if email[0] == ".":
       print(error_message_invalid_username)
       return
 
-    #10 Érvényes domain név. A "@" karakter után az első karakter nem lehet "."
+    #10 Érvényes domain név: A "@" karakter után az első karakter nem lehet "." (pl: ❌ "random@.gmail.com")
     if email[position_of_at + 1] == ".":
       print(error_message_no_server_name)
       return
@@ -91,10 +91,10 @@ def validate_email(email: str):
     print(ok_message)
 
 
-#ezt kivülről vettük szóval nem igazán tudom elmagyarázni.
+#Ez úgy működik, hogy ha a fájlt közvetlenül futtatják, akkor a felhasználótól bekéri az email címet, és meghívja a validate_email függvényt azzal az email címmel.
 if __name__ == "__main__":
 	email = input("Your email address: ")
 	validate_email(email)
 
-#Lényegében az "input" lekerült a kód végére a "validate_email" felé közvetlenül.
-#Így a felhasználó be tudja írni az email címét és aztán a program csak ellenőrzi. 
+#Lényegében a fenti kód egy e-mail cím érvényesítésére szolgáló függvényt indít el, amely különböző szabályokat ellenőriz, hogy az e-mail cím szabályos legyen.
+# Ha bármelyik szabály megsértésre kerül, akkor a függvény a megfelelő hibaüzenetet adja vissza, máskülönben megerősíti, hogy az e-mail cím érvényes.
